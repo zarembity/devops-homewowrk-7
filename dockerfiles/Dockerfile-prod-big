@@ -1,0 +1,15 @@
+FROM ubuntu:20.04
+
+RUN apt update && \
+    DEBIAN_FRONTEND=noninteractive apt install -y tomcat9
+
+#tompcat settings
+ENV CATALINA_HOME /usr/share/tomcat9
+ENV PATH $CATALINA_HOME/bin:$PATH
+ENV CATALINA_BASE /var/lib/tomcat9
+RUN mkdir -p $CATALINA_HOME
+
+EXPOSE 8080
+
+WORKDIR $CATALINA_HOME
+CMD ["catalina.sh", "run"]

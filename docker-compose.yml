@@ -1,0 +1,24 @@
+version: "3.2"
+
+services:
+
+  deploy-app:
+    container_name: my_java_deploy
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-deploy
+    volumes:
+      - data-artefacts:/tmp/boxfuse-sample-java-war-hello
+
+  prod-app:
+    container_name: my_java_prod
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-prod
+    volumes:
+      - data-artefacts:/usr/local/tomcat/webapps
+    ports:
+      - 8080:8080
+
+volumes:
+  data-artefacts:
